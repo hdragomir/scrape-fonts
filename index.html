@@ -1,0 +1,36 @@
+<!doctype html>
+<b></b>
+<script>
+</script>
+
+<a href="javascript:
+    (function (c, d) {
+        function loadFonts() {
+            var fonts;
+            try {
+                fonts = JSON.parse(localStorage.getItem('__fonts'));
+            } catch (e) {
+            }
+            return fonts || {};
+        }
+        function loadURLs() {
+            return localStorage.__urls ? JSON.parse(localStorage.__urls ) : [];
+        }
+        var nodes, i, node, fonts, s, k, urls = loadURLs();
+        if (urls.indexOf(location.pathname) === -1) {
+            urls.push(location.pathname);
+            fonts = loadFonts();
+            nodes = d.querySelectorAll('*');
+            i = nodes.length;
+            while (node = nodes[--i]) {
+                s = c(node);
+                k = s['font-size'] + ' ' + s['font-family'] + ' ' + s['font-style'] + ' ' + s['font-weight'] + ' ' + s['color'];
+                fonts[k] = fonts[k] ? fonts[k] + 1 : 1;
+            }
+            console.log(fonts);
+            localStorage.setItem('__fonts', JSON.stringify(fonts));
+            localStorage.setItem('__urls', JSON.stringify(urls));
+        }
+    }(window.getComputedStyle, document));">Scrape Fonts</a>
+
+
